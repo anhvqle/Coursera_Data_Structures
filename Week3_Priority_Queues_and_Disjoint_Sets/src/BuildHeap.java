@@ -39,7 +39,7 @@ public class BuildHeap {
     	return 2*i + 2;
     }
     
-    private void ShiftDown(int i) {
+    private void SiftDown(int i) {
     	int maxIndex = i;
     	int left = LeftChild(i);
     	int right = RightChild(i);
@@ -54,14 +54,14 @@ public class BuildHeap {
     		int temp = data[i];
     		data[i] = data[maxIndex];
     		data[maxIndex] = temp;
-    		ShiftDown(maxIndex);
+    		SiftDown(maxIndex);
     	}
     }
 
-    private void generateSwaps() {
+    private void buildHeap() {
     	swaps = new ArrayList<Swap>();
     	for(int i = Math.floorDiv(data.length, 2); i >= 0; i--) {
-    		ShiftDown(i);
+    		SiftDown(i);
     	}
     }
 
@@ -69,7 +69,7 @@ public class BuildHeap {
         in = new FastScanner();
         out = new PrintWriter(new BufferedOutputStream(System.out));
         readData();
-        generateSwaps();
+        buildHeap();
         writeResponse();
         out.close();
     }
