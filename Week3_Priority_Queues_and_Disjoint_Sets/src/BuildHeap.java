@@ -60,7 +60,6 @@ public class BuildHeap {
 
     private void generateSwaps() {
     	swaps = new ArrayList<Swap>();
-      
     	for(int i = Math.floorDiv(data.length, 2); i >= 0; i--) {
     		ShiftDown(i);
     	}
