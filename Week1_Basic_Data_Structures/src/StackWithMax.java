@@ -20,8 +20,8 @@ public class StackWithMax {
         }
     }
     
-    private Stack<Integer> data;
-    private Stack<Integer> max;
+    private Stack<Integer> data;	//Contains data of all the values added
+    private Stack<Integer> max;		//Contains the maximum value of data stack only
 
     public StackWithMax() {
         data = new Stack<Integer>();
