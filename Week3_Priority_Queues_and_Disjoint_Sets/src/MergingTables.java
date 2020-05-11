@@ -56,7 +56,7 @@ public class MergingTables {
             realSource.numberOfRows += realDestination.numberOfRows;
             realDestination.numberOfRows = 0;
             if (realSource.rank == realDestination.rank)
-                realDestination.rank++;
+            	realSource.rank++;
         }
         maximumNumberOfRows = Math.max(Math.max(maximumNumberOfRows, realSource.numberOfRows), realDestination.numberOfRows);
     }
