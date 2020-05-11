@@ -31,6 +31,9 @@ public class MergingTables {
         }
         Table getParent() {
             // find super parent and compress path
+        	while (parent != parent.parent) {
+                parent = parent.parent;
+            }
             return parent;
         }
     }
