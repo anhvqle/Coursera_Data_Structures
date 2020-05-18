@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class is_bst {
+public class is_bst_hard {
     class FastScanner {
         StringTokenizer tok = new StringTokenizer("");
         BufferedReader in;
@@ -22,7 +22,7 @@ public class is_bst {
 
     public class IsBST {
         class Node {
-            int key;
+            long key;								//long instead of int to handle big cases
             int left;
             int right;
 
@@ -44,30 +44,46 @@ public class is_bst {
                 tree[i] = new Node(in.nextInt(), in.nextInt(), in.nextInt());
             }
         }
-
+        
         boolean isBinarySearchTree() {
-        	if(nodes == 0 || nodes == 1) {
-        		return true;
-        	}
-        	ArrayList<Integer> result = new ArrayList<Integer>();
-        	int node = 0;
-        	Stack<Integer> s = new Stack<Integer>();
+            if(this.tree.length == 0) 
+            	return true;
+            return isBST(this.tree[0], Long.MIN_VALUE, Long.MAX_VALUE); 
+            
+        }
 
-			while (!s.isEmpty() || node != -1) {
-				if (node != -1) {
-					s.push(node);
-					node = tree[node].left;
-				}
-				else {
-					node = s.pop();
-					if(!result.isEmpty() && result.get(result.size()-1) > tree[node].key) {
-							return false;
-					}
-					result.add(tree[node].key);
-					node = tree[node].right;
-				}
-			}
-        	return true;
+        boolean isBST(Node node, long min, long max) { 
+            if (node == null) 
+                return true; 
+            if (node.key < min || node.key > max) 
+                return false; 
+            Node left;
+            if(node.left == -1) 
+            	left = null;
+            else
+            	left = this.tree[node.left];
+
+            Node right;
+            if(node.right == -1) 
+            	right = null;
+            else
+            	right = this.tree[node.right];
+            
+            return (isBST(left, min, node.key-1) && isBST(right, node.key, max)); 
+        } 
+
+        Node next(Node node) {
+            if(node.right != -1)
+                return leftDescendant(this.tree[node.right]);
+            else
+                return null;
+        }
+        
+        Node leftDescendant(Node node) {
+            if(node.left == -1)
+                return node;
+            else
+                return leftDescendant(this.tree[node.left]);
         }
     }
 
@@ -75,7 +91,7 @@ public class is_bst {
         new Thread(null, new Runnable() {
             public void run() {
                 try {
-                    new is_bst().run();
+                    new is_bst_hard().run();
                 } catch (IOException e) {
                 }
             }
@@ -84,48 +100,29 @@ public class is_bst {
     public void run() throws IOException {
         IsBST tree = new IsBST();
         tree.read();
-        if (tree.isBinarySearchTree()) 
+        if (tree.isBinarySearchTree()) {
             System.out.println("CORRECT");
-        else
+        } else {
             System.out.println("INCORRECT");
+        }
     }
 }
-
 /*
 3
 2 1 2
 1 -1 -1
-3 -1 -1
+2 -1 -1
 Output: CORRECT
+
+3
+2 1 2
+2 -1 -1
+3 -1 -1
+Output: INCORRECT
 
 3
 1 1 2
 2 -1 -1
 3 -1 -1
-Output: INCORRECT
-
-5
-1 -1 1
-2 -1 2
-3 -1 3
-4 -1 4
-5 -1 -1
-Output: CORRECT
-
-7
-4 1 2
-2 3 4
-6 5 6
-1 -1 -1
-3 -1 -1
-5 -1 -1
-7 -1 -1
-Output: CORRECT
-
-4
-4 1 -1
-2 2 3
-1 -1 -1
-5 -1 -1
 Output: INCORRECT
 */

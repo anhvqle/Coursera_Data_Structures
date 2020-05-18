@@ -9,7 +9,6 @@ public class HashChains {
     private FastScanner in;
     private PrintWriter out;
     // store all strings in one list
-    //private List<String> elems;
     private  ArrayList<ArrayList<String>> elems;
     // for hash function
     private int bucketCount;
